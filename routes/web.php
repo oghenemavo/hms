@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EcosystemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/login', [AuthController::class, 'index'])->name('login');
+Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
+
+Route::get('/dashboard', [EcosystemController::class, 'index'])->middleware('auth')->name('dashboard');
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
